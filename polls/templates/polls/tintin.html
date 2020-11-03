@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0;">
+	<meta name="description" content="Evergreen quotes from the world famous albums by Tintin, Captain Haddock, Professor Calculus and others." />
+	<meta name="author" content="Petteri Hamalainen" />
+
+	<link rel="apple-touch-icon" href="cv57x57.png"/>
+	<link rel="apple-touch-icon" sizes="72x72" href="cv72x72.png"/>
+	<link rel="apple-touch-icon" sizes="114x114" href="cv114x114.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	
+	<title>Daily Tintin</title>
+	
+<style>
+
+html {
+	background: #fffffd;
+}
+
+html,body {
+  background: #eee;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 16px;
+	font-family: Verdana, Geneva, sans-serif;
+	color: #eee;
+  text-align: center;
+}
+
+.contact {
+  font-size: 10px;
+  color: #555; 
+  font-weight: normal;
+  padding: 0px;
+  text-decoration: none;
+  text-align: center;
+  margin: 5px auto;
+}
+
+a {
+	color: #555; 
+	text-decoration: none;
+	font-weight: bold;
+	padding: 0px;
+}
+
+a:hover {
+	color: #000;
+	text-decoration: underline;
+}
+
+h4 {
+	margin: 2px 0 0 0;
+	padding: 0 40px;
+	border: 0;
+	outline: 0;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: right;
+}
+
+h3 {
+	margin: 0 0 0 0;
+	padding: 0 40px;
+	border: 0;
+	outline: 0;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-transform: uppercase;
+	/*  font-style:italic;*/
+	text-align: right;
+}
+
+h2 {
+	margin: 0;
+	padding: 8px 0 0 0;
+	font-color: #f00;
+	text-shadow: 0px 0px 4px rgb(255, 255, 255);
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+#maincontainer {
+  background: #fff;
+  max-width: 800px;
+  min-width: 638px;
+  height: 100%;
+  border-left: 8px solid #d00;
+  margin: 0 auto;
+  -moz-box-shadow: 0px 0px 5px 0px #555;
+  -webkit-box-shadow: 0px 0px 5px 0px #555;
+  box-shadow: 0px 0px 5px 0px #555;
+}
+
+.headline {
+	background: url(/static/titleimage.png) no-repeat 2px 2px, url(/static/background.png) repeat center center;
+	background-color: #DEC49D;
+	color: #222;
+	height: 74px;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: center;
+	margin: auto;
+	padding: 0;
+}
+
+.headline_bottom {
+	background: url(/static/titleimage2.png) no-repeat 2px center;
+	height: 62px;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: right;
+	vertical-align: top; 
+	padding: 0;
+	margin: auto;
+}
+
+.headline_bottom a {
+	font-size: 10px;
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-weight: normal;
+	padding: 6px 3px 0 0;
+	text-decoration: none;
+	color: #555;
+}
+
+.headline_bottom a:hover {
+	color: #000;
+	text-decoration: underline;
+}
+
+.infopane {
+	background: url(/static/scroll.png) no-repeat center center;
+	height: 54px;
+	line-height: 54px;
+	color: #555;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 30px;
+	margin: 0 0 60px 0;
+}
+
+#bubbletop {
+	background: #eee url(/static/bubbletop.png) center center no-repeat;
+	display: table;
+	width: 490px;
+	height: 32px;
+	margin: 0 auto 0 auto;
+	padding: 0;
+}
+
+#bubblebottom {
+	display: table;
+	width: 490px;
+	height: 293px;
+	color: #555;
+	margin: auto;
+	padding: 0;
+}
+
+#bubble {
+	background: #eee url(/static/bubble.png) center center repeat;
+	display: table;
+	width: 420px;
+	color: #000;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	margin: 0 auto 0 auto;
+	padding: 0 30px 0 40px;
+	text-align: left;
+}
+
+#bubblecontainer{
+  display: table;
+  box-shadow: 0px 0px 2px 0px #000;
+  margin: 0 auto;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<div id="maincontainer">
+
+
+	<div class="headline">
+		<h2>Daily Tintin</h2>
+		Evergreen Quotes Made Famous By Tintin & Co.
+	</div>
+
+	<div class="headline_bottom">
+    <--div class="fbcontainer">
+	
+      <div class="fb-like" data-href="http://www.dailytintin.com"
+        data-width="300" data-layout="button_count" data-action="like"
+        data-show-faces="false" data-share="false">
+      </div>
+    </div-->    
+	</div>
+	
+	<div id="bubblecontainer">
+
+		<div id="bubbletop" style="background-color: {{ quote.bgcolor }}"></div>
+	
+		<div id="bubble" style="background-color: {{ quote.bgcolor }}">{{ quote.text }}</div>
+
+		<div id="bubblebottom"
+			style="background-color: {{ quote.bgcolor }}; 
+			background-image: url(/static/{{ quote.image }}.png), url(/static/bgblur.png), url(/static/bgblur.png); 
+			background-repeat: no-repeat, no-repeat, no-repeat; 
+			background-position: center center, {{ quote.x1 }}px {{ quote.y1 }}px, {{ quote.x2 }}px {{ quote.y2 }}px;">
+			<h4>-{{ quote.name }}</h4>
+			<h3>{{ quote.book }}</h3>
+		</div>
+  </div>
+
+	<div class="infopane">
+		| &nbsp; {{ quote.votes }} votes &nbsp; | &nbsp; <a href="/tintin/vote/{{ quote.id }}">vote
+			for this quote</a> &nbsp; | &nbsp; <a href="/tintin">new quote</a> &nbsp; |
+	
+		<form action="/tintin" method="get">
+		  <label for="char">Choose a character:</label>
+		  <select id="char" name="char">
+			<option value="Random">Random</option>
+			<option value="Tintin">Tintin</option>
+			<option value="Captain Haddoc">Captain Haddoc</option>
+			<option value="Snowy">Snowy</option>
+			<option value="Thomson and Thompson">Thomson & Thompson</option>
+			<option value="Bianca Castafiore">Bianca Castafiore</option>
+			<option value="Professor Calculus">Professor Calculus</option>
+		  </select>
+		  <input type="submit" value="ok">
+		</form>
+
+	</div>
+
+</div>
+
+<div class="contact">
+<a href="contact.html">This fine waste of time by Petteri Hamalainen</a>
+</div>
+
+</body>
+</html>
