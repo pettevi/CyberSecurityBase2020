@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 import random
+import sqlite3
 
 from .models import Question, Quote
 from .forms import NameForm
@@ -16,6 +17,23 @@ def index(request):
 def results(request, question_id):
     response = "You're looking at the results of question %s."
     return HttpResponse(response % question_id)
+
+def dump(request):
+    quotes = Quote.objects.raw("SELECT * FROM polls_quote")
+
+    content = "<table>"
+    for quote in quotes:
+        content += "<tr>"
+        content += "<td>" + str(quote.id) + "</td>"
+        content += "<td>" + quote.character_name + "</td>"
+        content += "<td>" + quote.quote_text + "</td>"
+        content += "<td>" + quote.book_name + "</td>"
+        content += "<td>" + str(quote.votes) + "</td>"
+        content += "</tr>"
+
+    content += "</table>"
+
+    return HttpResponse(content)
 
 def vote(request, quote_id):
     quote = Quote.objects.get(id=quote_id)
@@ -44,27 +62,56 @@ def tintin(request, quote_id = -1):
         content = build_reply(quote_id)
     return render(request, 'polls/tintin.html', {'quote': content})
 
+def contact(request):
+    return render(request, 'polls/contact.html')
+
 def color():
     return str(random.randint(200, 255))
 
 def build_reply_for_char(char):
 
-    quote = Quote.objects.raw('SELECT * FROM polls_quote WHERE character_name == %s', [char])
-#    print( "DEBUG " + str(quote) + str(len(list(quote))))
-
-    l = len(list(quote))
-    ran = random.randint(0, l-1)
-    quote_text = quote[ran]
+#    print( "DEBUG: " + str(char))
+#    quote = Quote.objects.raw("SELECT * FROM polls_quote WHERE character_name = %s", [char])
+#    print( "DEBUG: " + str(quote) + str(len(list(quote))))
     
-    name = quote_text.character_name
-    book = quote_text.book_name
+    conn = sqlite3.connect("db.sqlite3")
+    cursor = conn.cursor()
+    response = cursor.execute("SELECT * FROM polls_quote WHERE character_name = ?", (char,))
+    ukot = response.fetchall()
+
+    i = random.randint(0, len(ukot)-1)
+    print("DEBUG: random=" + str(i))
+
+    print( "DEBUG: id=" + str(ukot[i][0]))
+    print( "DEBUG: quote=" + str(ukot[i][1]))
+    print( "DEBUG: char=" + str(ukot[i][2]))
+    print( "DEBUG: book=" + str(ukot[i][3]))
+    print( "DEBUG: votes=" + str(ukot[i][4]))
+
+    id = ukot[i][0]
+    quote_text = ukot[i][1]
+    name = ukot[i][2]
+    book = ukot[i][3]
+    votes = ukot[i][4]
+
+#    size = len(list(quote))
+#    print( "DEBUG: size=" + str(size))
+ #   if (size > 0):
+#    ran = random.randint(0, size-1)
+#    quote_text = quote[ran]
+ #   else:
+ #       ran = 0
+ #       quote_text = Quote.objects.get(id=1)
+
+#    name = quote_text.character_name
+#    book = quote_text.book_name
     x1 = str(random.randint(50, 450))
     y1 = str(random.randint(30, 110))
     x2 = str(random.randint(0, 170))
     y2 = str(random.randint(0, 50))
     image = get_image(name)
-    votes = quote_text.votes;
-    id = quote_text.id;
+#    votes = quote_text.votes;
+#    id = quote_text.id;
     content = {'text': quote_text, 'bgcolor': "rgb(" + color() + "," + color() + "," + color() + ")", 'name': name, 'book': book, 'image': image, 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2, 'votes': votes, 'id': id}
 
     return content
