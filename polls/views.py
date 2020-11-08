@@ -5,6 +5,8 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 import random
 import sqlite3
+from django.views.decorators.csrf import csrf_exempt
+
 
 from .models import Question, Quote, Note
 from .forms import NameForm
@@ -18,6 +20,8 @@ def results(request, question_id):
     response = "You're looking at the results of question %s."
     return HttpResponse(response % question_id)
 
+# OWASP A3 - Sensitive Data Exposure
+# Debug interface is left in production revealing 
 def dump(request):
     quotes = Quote.objects.raw("SELECT * FROM polls_quote")
 
@@ -43,8 +47,7 @@ def vote(request, quote_id):
     content = build_reply(quote_id)
 
     return render(request, 'polls/tintin.html', {'quote': content})
-#    return HttpResponse("You're voting on question %s." % question_id)
-    
+
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/detail.html', {'question': question})
@@ -65,12 +68,20 @@ def tintin(request, quote_id = -1):
 def contact(request):
     return render(request, 'polls/contact.html')
 
+# OWASP A5 - Broken Access Control
+# csrf_exempt disables cross site request forgery protection
+# attacker is able to feed in data outside of session
+@csrf_exempt
 def note(request):
     if request.method == 'POST':
-        user_message = request.POST['message']
-        user_name = request.POST['name']
-        new_note = Note.objects.create(note=user_message, name=user_name)
-        #new_note.save()
+        user_message = request.POST.get('message', '')
+#        print( "DEBUG: " + str(user_message))
+        user_name = request.POST.get('name', '')
+#        print( "DEBUG: " + str(user_name))
+        if (user_message != '' and user_name != ''):
+            new_note = Note.objects.create(note=user_message, name=user_name)
+#    elif request.method == 'GET':
+#        print( "DEBUG: this is GET" + str(request))
 
     return render(request, 'polls/note.html', { 'all_messages': Note.objects.all() } )
 
@@ -78,24 +89,25 @@ def color():
     return str(random.randint(200, 255))
 
 def build_reply_for_char(char):
-
 #    print( "DEBUG: " + str(char))
-#    quote = Quote.objects.raw("SELECT * FROM polls_quote WHERE character_name = %s", [char])
-#    print( "DEBUG: " + str(quote) + str(len(list(quote))))
     
     conn = sqlite3.connect("db.sqlite3")
     cursor = conn.cursor()
+
+# OWASP A1 - Injection 
+# Unvalidated data field coming from user input is used directly in SQL caluse causing 
+# injection vulnerability. Attacker can extract unwanted information from the DB.
     response = cursor.execute("SELECT * FROM polls_quote WHERE character_name = ?", (char,))
     ukot = response.fetchall()
 
     i = random.randint(0, len(ukot)-1)
-    print("DEBUG: random=" + str(i))
+#    print("DEBUG: random=" + str(i))
 
-    print( "DEBUG: id=" + str(ukot[i][0]))
-    print( "DEBUG: quote=" + str(ukot[i][1]))
-    print( "DEBUG: char=" + str(ukot[i][2]))
-    print( "DEBUG: book=" + str(ukot[i][3]))
-    print( "DEBUG: votes=" + str(ukot[i][4]))
+#    print( "DEBUG: id=" + str(ukot[i][0]))
+#    print( "DEBUG: quote=" + str(ukot[i][1]))
+#    print( "DEBUG: char=" + str(ukot[i][2]))
+#    print( "DEBUG: book=" + str(ukot[i][3]))
+#    print( "DEBUG: votes=" + str(ukot[i][4]))
 
     id = ukot[i][0]
     quote_text = ukot[i][1]
@@ -103,24 +115,11 @@ def build_reply_for_char(char):
     book = ukot[i][3]
     votes = ukot[i][4]
 
-#    size = len(list(quote))
-#    print( "DEBUG: size=" + str(size))
- #   if (size > 0):
-#    ran = random.randint(0, size-1)
-#    quote_text = quote[ran]
- #   else:
- #       ran = 0
- #       quote_text = Quote.objects.get(id=1)
-
-#    name = quote_text.character_name
-#    book = quote_text.book_name
     x1 = str(random.randint(50, 450))
     y1 = str(random.randint(30, 110))
     x2 = str(random.randint(0, 170))
     y2 = str(random.randint(0, 50))
     image = get_image(name)
-#    votes = quote_text.votes;
-#    id = quote_text.id;
     content = {'text': quote_text, 'bgcolor': "rgb(" + color() + "," + color() + "," + color() + ")", 'name': name, 'book': book, 'image': image, 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2, 'votes': votes, 'id': id}
 
     return content

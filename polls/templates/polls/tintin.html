@@ -13,7 +13,6 @@
 	<link rel="shortcut icon" href="favicon.ico">
 	
 	<title>Daily Tintin</title>
-	
 <style>
 
 html {
@@ -227,6 +226,8 @@ h2 {
 			for this quote</a> &nbsp; | &nbsp; <a href="/tintin">new quote</a> &nbsp; |
 	</div>
 	
+<!-- OWASP A1 - Injection. Value field is not validated on server side. Value is used directly in SQL clause allowing 
+attacker to feed in any value revealing data that should be available. Try typing in "Bianca Castafiore" -->
 	<div class="infopane">
 		<form action="/tintin" method="get">
 		  <label for="char">Choose a character:</label>
@@ -236,7 +237,7 @@ h2 {
 			<option value="Captain Haddoc">Captain Haddoc</option>
 			<option value="Snowy">Snowy</option>
 			<option value="Thomson and Thompson">Thomson & Thompson</option>
-			<option value="Bianca Castafiore">Bianca Castafiore</option>
+			<!-- option value="Bianca Castafiore">Bianca Castafiore</option -->
 			<option value="Professor Calculus">Professor Calculus</option>
 		  </select>
 		  <input type="submit" value="ok">
@@ -244,7 +245,7 @@ h2 {
 	</div>
 
 	<div >
-	<a href="/tintin/note">Leave a note</a>
+	<a href="/tintin/note">Check the guestbook and leave a note</a>
 	</div>
     <br>
 
