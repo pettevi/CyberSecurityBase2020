@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render
 import random
 import sqlite3
 
-from .models import Question, Quote
+from .models import Question, Quote, Note
 from .forms import NameForm
 
 def index(request):
@@ -64,6 +64,15 @@ def tintin(request, quote_id = -1):
 
 def contact(request):
     return render(request, 'polls/contact.html')
+
+def note(request):
+    if request.method == 'POST':
+        user_message = request.POST['message']
+        user_name = request.POST['name']
+        new_note = Note.objects.create(note=user_message, name=user_name)
+        #new_note.save()
+
+    return render(request, 'polls/note.html', { 'all_messages': Note.objects.all() } )
 
 def color():
     return str(random.randint(200, 255))

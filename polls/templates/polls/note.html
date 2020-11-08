@@ -2,18 +2,12 @@
 
 <html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Evergreen quotes from the world famous albums by Tintin, Captain Haddock, Professor Calculus and others." />
-	<meta name="author" content="Petteri Hamalainen" />
-
-	<link rel="apple-touch-icon" href="cv57x57.png"/>
-	<link rel="apple-touch-icon" sizes="72x72" href="cv72x72.png"/>
-	<link rel="apple-touch-icon" sizes="114x114" href="cv114x114.png"/>
-	<link rel="shortcut icon" href="favicon.ico">
-	
-	<title>Daily Tintin</title>
-	
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+<meta name="description" content="Daily Tintin" />
+<meta name="keywords" content="Tintin, generator, quote, Herge" />
+<meta name="author" content="Petteri Hamalainen" />
+<title>Daily Tintin</title>
 <style>
 
 html {
@@ -33,13 +27,13 @@ html,body {
 }
 
 .contact {
-	font-size: 10px;
-	color: #555; 
-	font-weight: normal;
-	padding: 0px;
-	text-decoration: none;
-	text-align: center;
-	margin: 5px auto;
+  font-size: 10px;
+  color: #555; 
+  font-weight: normal;
+  padding: 0px;
+  text-decoration: none;
+  text-align: center;
+  margin: 5px auto;
 }
 
 a {
@@ -81,7 +75,6 @@ h3 {
 h2 {
 	margin: 0;
 	padding: 8px 0 0 0;
-	font-color: #f00;
 	text-shadow: 0px 0px 4px rgb(255, 255, 255);
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 30px;
@@ -115,7 +108,7 @@ h2 {
 .headline_bottom {
 	background: url(/static/titleimage2.png) no-repeat 2px center;
 	height: 62px;
-	font-size: 12px;
+	font-size: 10px;
 	font-weight: bold;
 	text-align: right;
 	vertical-align: top; 
@@ -124,7 +117,7 @@ h2 {
 }
 
 .headline_bottom a {
-	font-size: 12px;
+	font-size: 10px;
 	font-family: Arial, Helvetica, Sans-Serif;
 	font-weight: normal;
 	padding: 6px 3px 0 0;
@@ -146,7 +139,7 @@ h2 {
 	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 12px;
-	padding: 10px;
+	padding: 3px;
 	margin: 0 0 6px 0;
 }
 
@@ -187,72 +180,53 @@ h2 {
   margin: 0 auto;
 }
 
+#error {background-color:#ffffff;border:1px solid #f00;margin:20px auto;padding: 20px;width:600px;}
+#thankyou {background-color:#ffffff;border:1px solid #090;margin:20px auto;padding: 20px;width:600px;}
+
 </style>
+
 </head>
 
 <body>
 
-<div id="maincontainer">
-
-	<div class="headline">
-		<h2>Daily Tintin</h2>
-		Evergreen Quotes Made Famous By Tintin & Co.
-	</div>
-
-	<div class="headline_bottom">
-    <br>
-	Login to vote	
-	</div>
-	
-	<div id="bubblecontainer">
-
-		<div id="bubbletop" style="background-color: {{ quote.bgcolor }}"></div>
-	
-		<div id="bubble" style="background-color: {{ quote.bgcolor }}">{{ quote.text }}</div>
-
-		<div id="bubblebottom"
-			style="background-color: {{ quote.bgcolor }}; 
-			background-image: url(/static/{{ quote.image }}.png), url(/static/bgblur.png), url(/static/bgblur.png); 
-			background-repeat: no-repeat, no-repeat, no-repeat; 
-			background-position: center center, {{ quote.x1 }}px {{ quote.y1 }}px, {{ quote.x2 }}px {{ quote.y2 }}px;">
-			<h4>-{{ quote.name }}</h4>
-			<h3>{{ quote.book }}</h3>
-		</div>
+  <div class="headline">
+    <h2>Daily Tintin</h2>
+    Evergreen Quotes As Made Famous By Tintin & Co.
   </div>
 
+  <div class="headline_bottom">
+  </div>
+
+  <h2>Leave a message</h2>
   <br>
 
-	<div class="infopane">
-		| &nbsp; {{ quote.votes }} votes &nbsp; | &nbsp; <a href="/tintin/vote/{{ quote.id }}">vote
-			for this quote</a> &nbsp; | &nbsp; <a href="/tintin">new quote</a> &nbsp; |
+  <form action="note" method="post">
+  {% csrf_token %}
+    <div >
+	  Name: &nbsp; &nbsp;
+	  <textarea id="name" rows="1" cols="60" name="name" maxlength="50">John Doe</textarea>
+	  <br>
+	  Message:
+	  <textarea id="message" rows="3" cols="60" name="message" maxlength="200"><script>alert("Hello! I am an xss attack!");</script></textarea>
 	</div>
-	
-	<div class="infopane">
-		<form action="/tintin" method="get">
-		  <label for="char">Choose a character:</label>
-		  <select id="char" name="char">
-			<option value="Random">Random</option>
-			<option value="Tintin">Tintin</option>
-			<option value="Captain Haddoc">Captain Haddoc</option>
-			<option value="Snowy">Snowy</option>
-			<option value="Thomson and Thompson">Thomson & Thompson</option>
-			<option value="Bianca Castafiore">Bianca Castafiore</option>
-			<option value="Professor Calculus">Professor Calculus</option>
-		  </select>
-		  <input type="submit" value="ok">
-		</form>
-	</div>
+	  <div>  
+		  <input type="submit" value="Submit">
+	  </div>
+  </form>
 
-	<div >
-	<a href="/tintin/note">Leave a note</a>
-	</div>
-    <br>
+  <br><br>
+  <h2>Guestbook</h2>
 
-</div>
+{% autoescape off %}
+   <div id="thankyou" style="text-align:left;color:black">
+   {% for message in all_messages %} #{{message.id}} <b> {{message.name}} </b> says: {{message.note}}
+ <br>{% endfor %}
+   </div>
+{% endautoescape %}
 
-<div class="contact">
-<a href="/tintin/contact">This fine waste of time by Petteri Hamalainen</a>
-</div>
-
+   <div>
+     <span style="text-align:center;color:green"><a href="/tintin">Go back</a>.</span>
+   </div>
+    
 </body>
 </html>
