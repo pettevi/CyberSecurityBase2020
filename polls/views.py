@@ -6,23 +6,19 @@ from django.shortcuts import get_object_or_404, render
 import random
 import sqlite3
 from django.views.decorators.csrf import csrf_exempt
-
+import logging
 
 from .models import Question, Quote, Note
 from .forms import NameForm
 
-def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
-    return render(request, 'polls/index.html', context)
+logger = logging.getLogger(__name__)
 
-def results(request, question_id):
-    response = "You're looking at the results of question %s."
-    return HttpResponse(response % question_id)
 
 # OWASP A3 - Sensitive Data Exposure
-# Debug interface is left in production revealing 
+# Debug interface is left in production revealing more data than intended
+# http://localhost:8000/tintin/dump
 def dump(request):
+    logger.info('DOH! This is debug url.')
     quotes = Quote.objects.raw("SELECT * FROM polls_quote")
 
     content = "<table>"
@@ -48,9 +44,6 @@ def vote(request, quote_id):
 
     return render(request, 'polls/tintin.html', {'quote': content})
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/detail.html', {'question': question})
 
 def tintin(request, quote_id = -1):
     if quote_id >= 0:
@@ -90,7 +83,7 @@ def color():
 
 def build_reply_for_char(char):
 #    print( "DEBUG: " + str(char))
-    
+
     conn = sqlite3.connect("db.sqlite3")
     cursor = conn.cursor()
 

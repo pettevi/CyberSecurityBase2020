@@ -48,40 +48,6 @@ a:hover {
 	text-decoration: underline;
 }
 
-h4 {
-	margin: 2px 0 0 0;
-	padding: 0 40px;
-	border: 0;
-	outline: 0;
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 14px;
-	font-weight: normal;
-	text-align: right;
-}
-
-h3 {
-	margin: 0 0 0 0;
-	padding: 0 40px;
-	border: 0;
-	outline: 0;
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 10px;
-	font-weight: bold;
-	text-transform: uppercase;
-	/*  font-style:italic;*/
-	text-align: right;
-}
-
-h2 {
-	margin: 0;
-	padding: 8px 0 0 0;
-	font-color: #f00;
-	text-shadow: 0px 0px 4px rgb(255, 255, 255);
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 30px;
-	font-weight: bold;
-}
-
 #maincontainer {
   background: #fff;
   max-width: 800px;
@@ -117,20 +83,6 @@ h2 {
 	margin: auto;
 }
 
-.headline_bottom a {
-	font-size: 10px;
-	font-family: Arial, Helvetica, Sans-Serif;
-	font-weight: normal;
-	padding: 6px 3px 0 0;
-	text-decoration: none;
-	color: #555;
-}
-
-.headline_bottom a:hover {
-	color: #000;
-	text-decoration: underline;
-}
-
 .infopane {
 	background: url(/static/scroll.png) no-repeat center center;
 	height: 54px;
@@ -144,44 +96,12 @@ h2 {
 	margin: 0 0 6px 0;
 }
 
-#bubbletop {
-	background: #eee url(/static/bubbletop.png) center center no-repeat;
-	display: table;
-	width: 490px;
-	height: 32px;
-	margin: 0 auto 0 auto;
-	padding: 0;
-}
-
-#bubblebottom {
-	display: table;
-	width: 490px;
-	height: 293px;
-	color: #555;
-	margin: auto;
-	padding: 0;
-}
-
-#bubble {
-	background: #eee url(/static/bubble.png) center center repeat;
-	display: table;
-	width: 420px;
-	color: #000;
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 22px;
-	font-weight: bold;
-	margin: 0 auto 0 auto;
-	padding: 0 30px 0 40px;
-	text-align: left;
-}
-
 #bubblecontainer{
   display: table;
   box-shadow: 0px 0px 2px 0px #000;
   margin: 0 auto;
 }
 
-#error {background-color:#ffffff;border:1px solid #f00;margin:20px auto;padding: 20px;width:600px;}
 #thankyou {background-color:#ffffff;border:1px solid #090;margin:20px auto;padding: 20px;width:600px;}
 
 </style>
@@ -198,35 +118,9 @@ h2 {
   <div class="headline_bottom">
   </div>
 
-<h2>Hey! I'd love to hear from you, send me a message.</h2>
-  <form action="contact" method="post">
-	  <div class="infopane">
-			  Name or email: <input type="text" name="name"><br>
-	  </div>
-	  <div class="infopane">
-			  Your message: <input type="text" name="message"><br>
-	  </div>
-	  <div class="infopane">  
-			  <input type="submit" value="Submit">
-	  </div>
-  </form>
-    
-   <%
-   String attr = (String) request.getParameter("error");
-   if (attr != null && attr.equals("0")) {
-   %>
-   <div id="error">
-     <span style="text-align:center;color:red">Both fields are required, please fill them in before sending.</span>
-   </div>
-   <%
-   } else if (attr != null && attr.equals("1")) {
-   %>
    <div id="thankyou">
-     <span style="text-align:center;color:green">Thank you. I will get back to you the soonest. Now <a href="www.dailytintin.com">go back</a>.</span>
+     <span style="text-align:center;color:green">Thank you, pete.hamalainen@gmail.com. Now <a href="/tintin">go back</a>.</span>
    </div>
-   <%
-   }
-   %>
-    
+
 </body>
 </html>
